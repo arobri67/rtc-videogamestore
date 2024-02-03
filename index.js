@@ -5,6 +5,7 @@ const { indexRouter } = require("./src/api/routes/indexRouter");
 require("dotenv").config();
 
 const app = express();
+app.use(express.json());
 connectDB();
 
 app.use("/api/v1/", indexRouter);
