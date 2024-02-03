@@ -1,6 +1,9 @@
 const express = require("express");
+const connectDB = require("./src/config/db");
+require("dotenv").config();
 
 const app = express();
+connectDB();
 
 app.use("/api/v1/", (req, res, next) => {
   return res.status(200).json({
