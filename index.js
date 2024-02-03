@@ -1,5 +1,6 @@
 const express = require("express");
 const connectDB = require("./src/config/db");
+const { setError } = require("./src/config/error");
 require("dotenv").config();
 
 const app = express();
@@ -13,7 +14,12 @@ app.use("/api/v1/", (req, res, next) => {
 
 //next should be present and is good practice. example for the token without the next you check for token but do not go next.
 app.use("*", (req, res, next) => {
-  return res.status(404).json({ data: "404 not found" });
+  return next(setError(404, "Not Found"));
+});
+app.use((error, req, res, next) => {
+  return res
+    .status(error.status || 500)
+    .json(error.message || "Internal Server Error");
 });
 
 const PORT = 3000;
