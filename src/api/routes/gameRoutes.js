@@ -7,13 +7,14 @@ const {
   updateGame,
   deleteGame,
 } = require("../controller/gameController");
+const { isAuthenticated } = require("../../middlewares/auth");
 
 const gameRoutes = express.Router();
 
 gameRoutes.get("/", getAllGames);
 gameRoutes.get("/:id", getGameById);
-gameRoutes.post("/", createGame);
-gameRoutes.put("/:id", updateGame);
-gameRoutes.delete("/:id", deleteGame);
+gameRoutes.post("/", isAuthenticated, createGame);
+gameRoutes.put("/:id", isAuthenticated, updateGame);
+gameRoutes.delete("/:id", isAuthenticated, deleteGame);
 
 module.exports = gameRoutes;

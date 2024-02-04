@@ -7,13 +7,14 @@ const {
   updatePlatform,
   deletePlatform,
 } = require("../controller/platformController");
+const { isAuthenticated } = require("../../middlewares/auth");
 
 const platformRoutes = express.Router();
 
 platformRoutes.get("/", getAllPlatforms);
 platformRoutes.get("/:id", getPlatformById);
-platformRoutes.post("/", createPlatform);
-platformRoutes.put("/:id", updatePlatform);
-platformRoutes.delete("/:id", deletePlatform);
+platformRoutes.post("/", isAuthenticated, createPlatform);
+platformRoutes.put("/:id", isAuthenticated, updatePlatform);
+platformRoutes.delete("/:id", isAuthenticated, deletePlatform);
 
 module.exports = platformRoutes;
