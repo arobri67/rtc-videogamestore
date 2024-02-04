@@ -22,7 +22,7 @@ const getAllGames = async (req, res, next) => {
   }
 };
 
-//GET (read9)
+//GET (read)
 const getGameById = async (req, res, next) => {
   try {
     const { id } = req.params;
