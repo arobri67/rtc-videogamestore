@@ -3,6 +3,7 @@ const connectDB = require("./src/config/db");
 const { setError } = require("./src/config/error");
 const { indexRouter } = require("./src/api/routes/indexRouter");
 require("dotenv").config();
+require("./src/config/cloudinary");
 
 const app = express();
 app.use(express.json());

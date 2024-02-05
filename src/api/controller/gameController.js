@@ -1,10 +1,14 @@
 const { setError } = require("../../config/error");
+const deleteFile = require("../../middlewares/deleteFile");
 const { Game } = require("../model/games");
 
 //POST (create)
 const createGame = async (req, res, next) => {
   try {
     const newGame = new Game(req.body);
+    if (req.file) {
+      newGame.image = req.file.path;
+    }
     const gameDB = await newGame.save();
     return res.status(201).json(gameDB);
   } catch (err) {
@@ -41,6 +45,13 @@ const updateGame = async (req, res, next) => {
     const updatedGame = new Game(req.body);
     updatedGame._id = id;
 
+    if (req.file) {
+      updatedGame.image = req.file.path;
+      if (oldGame.image) {
+        deleteFile(oldGame.image);
+      }
+    }
+
     if (updatedGame.platforms) {
       //Set is to make sure that there are no duplicates
       const uniqueSet = new Set([
@@ -55,7 +66,7 @@ const updateGame = async (req, res, next) => {
     });
     return res.status(200).json(newGameInfo);
   } catch (err) {
-    return next(setError(400, err));
+    return next(setError(400, `${err}`));
   }
 };
 

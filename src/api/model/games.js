@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const gameSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
-    cover: { type: String, required: true, trim: true },
+    image: { type: String, required: true, trim: true },
     platforms: [
       {
         type: String,

@@ -13,8 +13,8 @@ const platformRoutes = express.Router();
 
 platformRoutes.get("/", getAllPlatforms);
 platformRoutes.get("/:id", getPlatformById);
-platformRoutes.post("/", isAuthenticated, createPlatform);
-platformRoutes.put("/:id", isAuthenticated, updatePlatform);
-platformRoutes.delete("/:id", isAuthenticated, deletePlatform);
+platformRoutes.post("/", [isAuthenticated], createPlatform);
+platformRoutes.put("/:id", [isAuthenticated], updatePlatform);
+platformRoutes.delete("/:id", [isAuthenticated], deletePlatform);
 
 module.exports = platformRoutes;
